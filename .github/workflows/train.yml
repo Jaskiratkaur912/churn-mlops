@@ -35,7 +35,7 @@ jobs:
         run: pytest tests/ -v
 
       - name: Upload model artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: trained-model
           path: models/best_model.pkl
