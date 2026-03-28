@@ -5,6 +5,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.impute import SimpleImputer
 import joblib
+import os
+import sys
+
+# make sure we always run from project root
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print("Working directory:", os.getcwd())
 
 def load_processed_data():
     X_train = pd.read_csv("data/processed/X_train.csv")

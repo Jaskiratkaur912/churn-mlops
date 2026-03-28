@@ -13,6 +13,11 @@ from sklearn.metrics import (
     classification_report
 )
 import joblib
+import os
+import sys
+
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print("Working directory:", os.getcwd())
 
 def load_features():
     X_train = pd.read_csv("data/processed/X_train_fe.csv")
