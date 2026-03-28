@@ -18,6 +18,12 @@ import sys
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print("Working directory:", os.getcwd())
+os.environ['MLFLOW_TRACKING_URI'] = 'mlruns'
+mlflow.set_tracking_uri('mlruns')
+os.environ['MLFLOW_TRACKING_URI'] = f'file://{project_root}/mlruns'
+mlflow.set_tracking_uri(f'file://{project_root}/mlruns')
+
+optuna.logging.set_verbosity(optuna.logging.WARNING)
 
 def load_features():
     X_train = pd.read_csv("data/processed/X_train_fe.csv")
@@ -91,6 +97,7 @@ def train_baseline(X_train, X_test, y_train, y_test):
 
 def objective(trial, X_train, X_test, y_train, y_test):
     # optuna suggests hyperparameters automatically
+    mlflow.set_experiment("churn-prediction")   
     params = {
         "n_estimators":     trial.suggest_int("n_estimators", 100, 500),
         "max_depth":        trial.suggest_int("max_depth", 3, 10),
