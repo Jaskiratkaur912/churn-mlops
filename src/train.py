@@ -1,4 +1,5 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 import mlflow
@@ -6,22 +7,21 @@ import mlflow.xgboost
 import xgboost as xgb
 import optuna
 from sklearn.metrics import (
-    roc_auc_score,
-    f1_score,
-    recall_score,
-    precision_score,
+    roc_auc_score, f1_score,
+    recall_score, precision_score,
     classification_report
 )
 import joblib
-import os
-import sys
 
-os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print("Working directory:", os.getcwd())
-os.environ['MLFLOW_TRACKING_URI'] = 'mlruns'
-mlflow.set_tracking_uri('mlruns')
-os.environ['MLFLOW_TRACKING_URI'] = f'file://{project_root}/mlruns'
-mlflow.set_tracking_uri(f'file://{project_root}/mlruns')
+# step 1 - define project root FIRST
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# step 2 - change to project root
+os.chdir(project_root)
+
+# step 3 - now use project_root for mlflow
+os.environ['MLFLOW_TRACKING_URI'] = 'file://' + project_root + '/mlruns'
+mlflow.set_tracking_uri('file://' + project_root + '/mlruns')
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
