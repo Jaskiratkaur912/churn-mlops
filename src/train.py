@@ -151,6 +151,10 @@ def train_best_model(X_train, X_test, y_train, y_test, best_params):
 
 if __name__ == "__main__":
     # load features
+    os.makedirs("models", exist_ok=True)
+    os.makedirs("data/processed", exist_ok=True)
+    
+    
     X_train, X_test, y_train, y_test = load_features()
 
     # step 1 - train baseline
